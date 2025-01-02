@@ -1,15 +1,15 @@
 ## Overview
-This Python script is designed to parse and organize highlights and notes from a Kindle "My Clippings.txt" file. It extracts the highlights and associated notes, removes duplicates and partial duplicates, and writes the organized content into a new file.
+This Python script is designed to parse and organize highlights and notes from a Kindle "MyClippings.txt" file. It extracts the highlights and associated notes, removes duplicates and partial duplicates, and writes the organized content into a new file.
 
 ## Features
-1. **Parsing Highlights and Notes**: The script reads the "My Clippings.txt" file and extracts book titles, highlights, and notes.
+1. **Parsing Highlights and Notes**: The script reads the "MyClippings.txt" file and extracts book titles, highlights, and notes.
 2. **Duplicate Removal**: It removes exact duplicates and partial duplicates (where one highlight is a subset of another).
 3. **Output Organization**: The organized highlights and notes are written to a new file in a structured format.
 
 ## Usage
 ### Steps to Run the Script
 1. **Save the Script**: Save the provided Python script as `Python_Script.py`.
-2. **Update File Paths**: Modify the `input_file_path` and `output_file_path` variables in the `main()` function to point to your "My Clippings.txt" file and the desired output file, respectively.
+2. **Update File Paths**: Modify the `input_file_path` and `output_file_path` variables in the `main()` function to point to your "MyClippings.txt" file and the desired output file, respectively.
 3. **Run the Script**: Execute the script using Python:
    ```bash
    python Python_Script.py
@@ -44,7 +44,7 @@ Designing Your Life (Bill Burnett)
 * **write_organized_highlights(highlights_dict, notes_dict, output_file_path):** Writes organized content to a file.
 
 ## Notes
-- Ensure the "My Clippings.txt" file is correctly formatted as expected by the script.
+- Ensure the "MyClippings.txt" file is correctly formatted as expected by the script.
 - The script assumes that the file follows the standard Kindle highlights format.
 
 ## License
