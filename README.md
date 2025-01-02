@@ -38,10 +38,10 @@ Designing Your Life (Bill Burnett)
 
 ## Functions
 
-* parse_highlights(file_path): Extracts highlights and notes.
-* remove_duplicates(highlights_dict): Removes exact duplicates.
-* remove_partial_duplicates(highlights_dict): Removes partial duplicates.
-* write_organized_highlights(highlights_dict, notes_dict, output_file_path): Writes organized content to a file.
+* **parse_highlights(file_path):** Extracts highlights and notes.
+* **remove_duplicates(highlights_dict):** Removes exact duplicates.
+* **remove_partial_duplicates(highlights_dict):** Removes partial duplicates.
+* **write_organized_highlights(highlights_dict, notes_dict, output_file_path):** Writes organized content to a file.
 
 ## Notes
 - Ensure the "My Clippings.txt" file is correctly formatted as expected by the script.
