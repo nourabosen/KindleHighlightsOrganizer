@@ -1,33 +1,19 @@
 # Kindle Highlights Organizer
 
-## Overview
-This Python script is designed to parse and organize highlights and notes from a Kindle "My Clippings.txt" file. It extracts the highlights and associated notes, removes duplicates and partial duplicates, and writes the organized content into a new file. The structured output is compatible with **outliner note-taking apps** like **Logseq**, **Obsidian**, **Roam Research**, and others, making it easy to integrate into your knowledge management workflow.
+A robust, modular Python application for organizing and managing Kindle highlights. It parses "My Clippings.txt", removes duplicates, associates notes with highlights, and exports them into a structured format compatible with outliner apps like Logseq, Obsidian, and Roam Research.
 
-**Personal Use Case**: I use this script as a **replacement for Readwise** to organize my Kindle highlights and import them into **Logseq** where the structured format fits seamlessly into my workflow.
+## Overview
+This application serves as a **free, local alternative to Readwise**. It takes the raw, unstructured clippings from your Kindle device and transforms them into a clean, organized markdown format. 
+
+Key capabilities include:
+- **Smart Parsing**: Robustly handles the Kindle clippings format, identifying Book Titles, Authors, Highlights, and Notes.
+- **Intelligent Deduplication**: Automatically removes exact duplicates and handles partial overlaps (e.g., when you re-highlight a larger section, it keeps the most complete version and preserves your notes).
+- **Contextual Note Linking**: Correctly associates your notes with the specific highlight they belong to, ensuring no context is lost.
 
 ## Features
-1. **Parsing Highlights and Notes**: The script reads the "My Clippings.txt" file and extracts book titles, highlights, and notes.
-2. **Duplicate Removal**: It removes exact duplicates and partial duplicates (where one highlight is a subset of another).
-3. **Output Organization**: The organized highlights and notes are written to a new file in a structured format, compatible with outliner apps.
-4. **Readwise Alternative**: This script provides a free and customizable alternative to Readwise for organizing and managing Kindle highlights.
-
-## Usage
-
-### Locating the "My Clippings.txt" File
-1. **Connect Your Kindle to Your PC**: Use a USB cable to connect your Kindle device to your computer.
-2. **Access the Kindle Drive**: Open "This PC" or "File Explorer" and locate your Kindle device.
-3. **Find the File**: Navigate to the `documents` folder on your Kindle. The "My Clippings.txt" file should be located there.
-
-### Steps to Run the Script
-1. **Save the Script**: Save the provided Python script as `kindle_highlights_organizer.py`.
-2. **Update File Paths**: Modify the `input_file_path` and `output_file_path` variables in the `main()` function to point to your "My Clippings.txt" file and the desired output file, respectively.
-3. **Run the Script**: Execute the script using Python:
-   ```bash
-   python kindle_highlights_organizer.py
-   ```
-
-### Importing into Outliner Apps
-The output file (`organized_highlights.txt`) is structured in a way that works well with **outliner note-taking apps**. Simply open the file, copy the content, and paste it into your app. The format (book titles as headings and highlights as bullet points) integrates seamlessly.
+- **Modern GUI**: A user-friendly, clean interface for easy file selection and processing.
+- **Outliner-Ready**: Output is formatted specifically for indentation-based tools (Logseq, Obsidian, etc.).
+- **Zero Dependencies**: Built using standard Python libraries (Tkinter), requiring no external package installation.
 
 ### Example Input
 ```plaintext
@@ -50,17 +36,49 @@ Designing Your Life (Bill Burnett)
     - "Enjoyment is a guide to finding the right work for you."
 ```
 
-## Functions
-- **`parse_highlights(file_path)`**: Extracts highlights and notes.
-- **`remove_duplicates(highlights_dict)`**: Removes exact duplicates.
-- **`remove_partial_duplicates(highlights_dict)`**: Removes partial duplicates.
-- **`write_organized_highlights(highlights_dict, notes_dict, output_file_path)`**: Writes organized content to a file.
+## Requirements
+- Python 3.6 or higher
+- Tkinter (Standard Python GUI library, usually included with Python installation)
 
-## Notes
-- Ensure the "My Clippings.txt" file is correctly formatted as expected by the script.
-- The script assumes that the file follows the standard Kindle highlights format.
-- The output is designed to be compatible with outliner note-taking apps, making it easy to integrate into your workflow.
-- This script serves as a **free and customizable alternative to Readwise** for organizing and managing Kindle highlights.
+## Installation
+**Download the Project**
+  Clone the repository or download the source files to a local directory.
+  ```bash
+  git clone https://github.com/nourabosen/KindleHighlightsOrganizer.git
+  cd KindleHighlightsOrganizer
+  ```
+
+## Usage
+
+### Graphical User Interface (GUI)
+The recommended way to use the application is via the GUI.
+
+1. **Launch the Application**:
+   ```bash
+   python kindle_highlights_organizer.py
+   ```
+2. **Select Input**: Click "Browse File" to locate your `My Clippings.txt` file.
+   - *Tip*: On a connected Kindle, this is located in the `documents` folder.
+3. **Select Output**: Choose where to save the generated text file.
+4. **Run**: Click "START ORGANIZING". The log window will display the progress and summary.
+
+### Command Line Interface (CLI)
+For power users who prefer the terminal or want to automate the process:
+
+```bash
+# Syntax: python kindle_highlights_organizer.py [Input File] [Output File]
+python kindle_highlights_organizer.py "My Clippings.txt" "organized_highlights.txt"
+```
+
+## Project Architecture
+The application follows a modular architecture to ensure maintainability and separation of concerns:
+
+| File | Description |
+|------|-------------|
+| **`kindle_highlights_organizer.py`** | **Entry Point**: Handles command-line arguments and initializes the application (CLI or GUI). |
+| **`gui.py`** | **Presentation Layer**: Implements the `tkinter` interface, handling user interaction and visual feedback. |
+| **`core.py`** | **Business Logic**: Contains the core algorithms for file parsing, duplicate detection, and content processing. |
+| **`models.py`** | **Data Layer**: Defines the `Clipping` class data structure. |
 
 ## License
-This script is provided as-is, without any warranties. Feel free to modify and distribute it as needed.
+This project is open-source and free to use.
