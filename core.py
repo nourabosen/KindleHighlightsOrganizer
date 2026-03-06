@@ -16,14 +16,17 @@ def parse_clippings_file(file_path: str) -> Dict[str, List[Clipping]]:
     
     clippings_by_book = defaultdict(list)
     
-    # Regex for metadata line - handles two Kindle formats:
-    # 1. "on page X | location Y"  (books)
-    # 2. "at location Y"           (PDFs / no-page entries)
-    # 3. "at location Y" (Bookmarks - may have no content body)
+    # Regex for metadata line - handles all Kindle formats:
+    # 1. "on page X | location Y-Z"   (ebooks with page + location)
+    # 2. "at location Y-Z"            (PDFs / no-page entries)
+    # 3. "on page X-Y"                (physical-page-only, no location field)
     meta_pattern = re.compile(
         r"- Your (?P<type>\w+) "
-        r"(?:on page (?P<page>\d+) \| location (?P<loc1>[\d-]+)"  # format 1: page + location
-        r"|at location (?P<loc2>[\d-]+))"                          # format 2: at location
+        r"(?:"
+        r"on page (?P<page>[\d-]+) \| location (?P<loc1>[\d-]+)"  # format 1: page + location
+        r"|at location (?P<loc2>[\d-]+)"                           # format 2: at location only
+        r"|on page (?P<page3>[\d-]+)"                              # format 3: page only, no location
+        r")"
         r" \| Added on (?P<date>.+)"
     )
 
@@ -46,7 +49,7 @@ def parse_clippings_file(file_path: str) -> Dict[str, List[Clipping]]:
             continue
             
         c_type = meta_match.group("type")
-        loc_str = meta_match.group("loc1") or meta_match.group("loc2")
+        loc_str = meta_match.group("loc1") or meta_match.group("loc2") or meta_match.group("page3")
         date_str = meta_match.group("date")
         
         if '-' in loc_str:
