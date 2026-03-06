@@ -16,8 +16,16 @@ def parse_clippings_file(file_path: str) -> Dict[str, List[Clipping]]:
     
     clippings_by_book = defaultdict(list)
     
-    # Regex for metadata line
-    meta_pattern = re.compile(r"- Your (?P<type>\w+) (?:on page (?P<page>\d+) \| )?location (?P<loc>[\d-]+) \| Added on (?P<date>.+)")
+    # Regex for metadata line - handles two Kindle formats:
+    # 1. "on page X | location Y"  (books)
+    # 2. "at location Y"           (PDFs / no-page entries)
+    # 3. "at location Y" (Bookmarks - may have no content body)
+    meta_pattern = re.compile(
+        r"- Your (?P<type>\w+) "
+        r"(?:on page (?P<page>\d+) \| location (?P<loc1>[\d-]+)"  # format 1: page + location
+        r"|at location (?P<loc2>[\d-]+))"                          # format 2: at location
+        r" \| Added on (?P<date>.+)"
+    )
 
     for block in blocks:
         lines = [l.strip() for l in block.strip().split('\n') if l.strip()]
@@ -38,7 +46,7 @@ def parse_clippings_file(file_path: str) -> Dict[str, List[Clipping]]:
             continue
             
         c_type = meta_match.group("type")
-        loc_str = meta_match.group("loc")
+        loc_str = meta_match.group("loc1") or meta_match.group("loc2")
         date_str = meta_match.group("date")
         
         if '-' in loc_str:
